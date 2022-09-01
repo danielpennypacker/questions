@@ -12,7 +12,7 @@ The sign up form should have similar behavior to [Twilio's sign up form](https:/
 - Look and behave similar (for example, focusing on an element should lift and shrink the placeholder text and change the underline color)
 - Submit data to a backend
 
-Data should be POST'd to /api/users and should have the following format:
+Data should be POST'd to `localhost:5000/api/users` and should have the following format:
 ```
 {
     "first_name": "John",
@@ -25,12 +25,15 @@ Data should be POST'd to /api/users and should have the following format:
 The backend will validate input, including checking whether the email is already taken. If the input is valid, the response will be status 200 and look like this:
 
 ```
-{"errors": {"first_name": None, "last_name": None", "email": None, "phone": None}}
+{"errors": {"first_name": None,
+         "last_name": None", 
+         "email": None, 
+         "phone": None}}
+```
 
 If the input fails validation, the response will look something like this:
 
 {"errors": {"first_name": "That doesn't look like a first name", "last_name": None", "email": "That email is taken", "phone": None}}
 
-Upon submission, you should also display errors to the user.
-
 ```
+Upon submission, you should also display errors to the user.
