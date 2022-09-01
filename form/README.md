@@ -25,7 +25,7 @@ Data should be POST'd to `localhost:5000/api/users` and should have the followin
 }
 ```
 
-The backend will validate input, including checking whether the email is already taken. If the input is valid, the response will be status 200 and look like this:
+The backend will validate input, including checking whether the email is already taken. If the input is valid, the HTTP response will be status 200 and look like this:
 
 ```
 {"errors": {"first_name": None,
@@ -34,7 +34,7 @@ The backend will validate input, including checking whether the email is already
             "phone": None}}
 ```
 
-If the input fails the backend's validation, the response will look something like this:
+If the input fails the backend's validation, the HTTP response will be status 400 and look something like this:
 
 ```
 {"errors": {"first_name": "That doesn't look like a first name", 
