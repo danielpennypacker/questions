@@ -13,7 +13,7 @@ The sign up form should have similar behavior to [Twilio's sign up form](https:/
 - Look and behave similar (for example, focusing on an element should lift and shrink the placeholder text and change the underline color)
 - Submit data to a backend
 
-# Submitting data to the backend
+## Submitting data to the backend
 
 Data should be POST'd to `localhost:5000/api/users` and should have the following format:
 ```
@@ -43,10 +43,10 @@ If the input fails the backend's validation, the response will look something li
             "phone": None}}
 ```
 
-*Note:* You can use the email address `takenemail@gmail.com` to simulate an email address that's already registered.
+**Note:** You can use the email address `takenemail@gmail.com` to simulate an email address that's already registered.
 
 Upon submission, you should display errors to the user.
 
 
-##### Use discretion to create good UI/UX! 
+## Use discretion to create good UI/UX! 
 You don't have to exactly copy Twilio's form behavior. That said, aim to have a good user experience that won't surprise or frustrate people.
