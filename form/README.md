@@ -7,6 +7,7 @@ For this interview, you will be creating a sign up form. The form will has the f
 - Phone number
 
 The sign up form should have similar behavior to [Twilio's sign up form](https://www.twilio.com/try-twilio). That is, is should:
+
 - Perform client side validation (display errors when user enters invalid data)
 - Only allow form submission if client side checks pass
 - Look and behave similar (for example, focusing on an element should lift and shrink the placeholder text and change the underline color)
@@ -31,9 +32,18 @@ The backend will validate input, including checking whether the email is already
             "phone": None}}
 ```
 
-If the input fails validation, the response will look something like this:
+If the input fails the backend's validation, the response will look something like this:
 
-{"errors": {"first_name": "That doesn't look like a first name", "last_name": None", "email": "That email is taken", "phone": None}}
-
+{"errors": {"first_name": "That doesn't look like a first name", 
+            "last_name": None", 
+            "email": "That email is taken", 
+            "phone": None}}
 ```
-Upon submission, you should also display errors to the user.
+
+*Note:* You can use the email address `takenemail@gmail.com` to simulate an email address that's already registered.
+
+Upon submission, you should display errors to the user.
+
+
+# Use discretion to create good UI/UX! 
+You don't have to exactly copy Twilio's form behavior. That said, aim to have a good user experience that won't surprise or frustrate people.
