@@ -26,9 +26,9 @@ The backend will validate input, including checking whether the email is already
 
 ```
 {"errors": {"first_name": None,
-         "last_name": None", 
-         "email": None, 
-         "phone": None}}
+            "last_name": None", 
+            "email": None, 
+            "phone": None}}
 ```
 
 If the input fails validation, the response will look something like this:
