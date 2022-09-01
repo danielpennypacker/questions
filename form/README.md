@@ -34,6 +34,7 @@ The backend will validate input, including checking whether the email is already
 
 If the input fails the backend's validation, the response will look something like this:
 
+```
 {"errors": {"first_name": "That doesn't look like a first name", 
             "last_name": None", 
             "email": "That email is taken", 
@@ -45,5 +46,5 @@ If the input fails the backend's validation, the response will look something li
 Upon submission, you should display errors to the user.
 
 
-# Use discretion to create good UI/UX! 
+##### Use discretion to create good UI/UX! 
 You don't have to exactly copy Twilio's form behavior. That said, aim to have a good user experience that won't surprise or frustrate people.
