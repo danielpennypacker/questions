@@ -11,7 +11,7 @@ The sign up form should look and behave like [Twilio's sign up form](https://www
 - Perform client side validation; that is, display errors when a user enters invalid data (e.g. an invalid email address).
 - Only allow form submission if the client side validation passes.
 - Have similar UI to Twilio's (e.g., focusing on an element should lift and shrink the placeholder text and change the underline color).
-- Submit data to a locally run backend server.
+- Submit data to a locally running backend server.
 - Display errors from the backend (if they exist) after submitting the form.
 - Hide the form and display a success message if submitted data passes backend validation.
 
