@@ -63,3 +63,5 @@ flask --app backend run
 ## What technologies to use
 Whatever you want. We recommend using a framework like React/Angular/Vue.js to make your life easier. If you don't like CSS, feel free to use something like Sass.
 
+## How to submit
+Email your answer to your recruiter (e.g. your .js, .css, .html files). Include instructions for running your form in a browser - for example, if it's written in a non-JS framework, describe how to compile it.
