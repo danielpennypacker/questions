@@ -13,6 +13,8 @@ The sign up form should have similar behavior to [Twilio's sign up form](https:/
 - Look and behave similar (for example, focusing on an element should lift and shrink the placeholder text and change the underline color)
 - Submit data to a backend
 
+# Submitting data to the backend
+
 Data should be POST'd to `localhost:5000/api/users` and should have the following format:
 ```
 {
