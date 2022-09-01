@@ -15,7 +15,7 @@ The sign up form should look and behave like [Twilio's sign up form](https://www
 - Display errors from the backend (if they exist) after submitting the form.
 - Hide the form and display a success message if submitted data passes backend validation.
 
-## Submitting data to the backend
+## Submitting data to the locally running backend
 
 Data should be POST'd to `localhost:5000/api/users` with the following format:
 ```
@@ -56,7 +56,7 @@ You don't have to exactly copy Twilio's form behavior, but feel free. Aim to hav
 
 
 ## Running the local backend server
-The backend server can be run locally with the following command:
+The backend server can be run locally after cloning this repository and running the following command:
 ```
 flask --app backend run
 ```
