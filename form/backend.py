@@ -7,7 +7,7 @@ from flask import Response
 app = Flask(__name__)
 
 
-@app.route("/api/users")
+@app.route("/api/users", methods=["POST"])
 def create_user():
     payload = request.get_json()
     print(payload)
