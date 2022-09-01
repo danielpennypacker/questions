@@ -23,7 +23,7 @@ Data should be POST'd to `localhost:5000/api/users` with the following format:
     "first_name": <a string, at least one character>,
     "last_name": <a string, at least one character>,
     "email": <a string that looks like an email>,
-    "phone": <a 10 digit integer, not starting with 0>
+    "phone": <a string composed of numerical characters, not starting with "0">
 }
 ```
 
