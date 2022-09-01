@@ -72,6 +72,12 @@ def get_email_errors(email):
 
 
 def get_phone_errors(phone):
-    if type(phone) is int and len(str(phone)) == 10:
-        return None
-    return "That isn't a valid phone number"
+    error_msg = "That isn't a valid phone number"
+    if type(phone) is str and len(phone) == 10 and phone[0] != "0":
+        try:
+            int(phone)
+        except Exception:
+            return error_msg
+        else:
+            return None
+    return error_msg
