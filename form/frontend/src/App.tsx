@@ -1,17 +1,19 @@
-import React from 'react';
+import React from "react";
 import { createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 
-import SignUpForm from './components/SignUpForm';
-import './App.css';
+import SignUp from "./containers/SignUp";
+
+import "./App.css";
 
 function App() {
-
+  const styles = {};
   return (
     <div className="App">
       <header className="App-header">
-        Hello!. 
-        <SignUpForm />
+        <div className="Content">
+          <SignUp />
+        </div>
       </header>
     </div>
   );
