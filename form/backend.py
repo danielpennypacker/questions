@@ -3,14 +3,18 @@ import re
 from flask import Flask
 from flask import request
 from flask import Response
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+app.config['CORS_HEADERS'] = 'Content-Type'
+
+cors = CORS(app, resources={r"/api/users": {"origins": "http://localhost:3000"}})
 
 
-@app.route("/api/users", methods=["POST"])
+@app.route("/api/users", methods=["POST", "OPTIONS"])
+@cross_origin(origin='localhost', headers=['Content- Type','Authorization'])
 def create_user():
-    payload = request.get_json()
-    print(payload)
+    payload = json.loads(request.data, strict=False)
 
     first_name = payload.get("first_name")
     last_name = payload.get("last_name")
@@ -34,7 +38,7 @@ def create_user():
         status = 400
 
     return Response(
-        json.dumps({"errors": errors}),
+        json.dumps({"errors": error}),
         status=status,
         mimetype="application/json",
     )

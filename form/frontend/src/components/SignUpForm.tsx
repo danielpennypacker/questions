@@ -1,10 +1,16 @@
 import React from "react";
-import { useTheme } from "@mui/material/styles";
-import { styled } from "@mui/system";
-import { TextField, Button, FormGroup } from "@mui/material";
-import { useForm, FieldError, Merge, FieldErrorsImpl } from "react-hook-form";
-import { red } from "@mui/material/colors";
-import { NONAME } from "dns";
+import { styled, useTheme, Theme } from "@mui/system";
+import { SignUpFields } from "../types";
+import * as api from "../api";
+
+import { TextField, Button, FormGroup, Typography } from "@mui/material";
+import {
+  useForm,
+  FieldError,
+  Merge,
+  FieldErrorsImpl,
+  FieldValue,
+} from "react-hook-form";
 
 const PaddedForm = styled("form")({
   backgroundColor: "white",
@@ -14,9 +20,13 @@ const PaddedForm = styled("form")({
   width: "60%",
 });
 
-const ErrorText = styled("span")({
-  color: "red", // TODO: use a theme variable here.
+const SpacedFormGroup = styled(FormGroup)({
+  marginTop: "1rem",
 });
+
+const ErrorText = styled("span")((props) => ({
+  color: props.theme.palette.error.main,
+}));
 
 const TwoCol = styled("div")({
   display: "flex",
@@ -35,20 +45,9 @@ const TransparentBack = styled("div")({
   position: "absolute",
 });
 
-const SpacedTextField = styled(TextField)({
-  marginTop: "1rem",
-});
-
 const SpacedButton = styled(Button)({
   marginTop: "1rem",
 });
-
-interface SignUpFormFields {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-}
 
 interface TextFieldValidProps<Type> {
   label: string;
@@ -77,18 +76,23 @@ function TextFieldValidated<Type>({
   }
 
   return (
-    <FormGroup>
+    <SpacedFormGroup>
       <TextField
         {...register(name, {
           required,
         })}
         error={!!errors || customErrorMessage}
         label={label}
+        defaultValue="lalal"
         variant="standard"
       />
-      {errorMessage && <ErrorText>{errorMessage}</ErrorText>}
+      {errorMessage && (
+        <ErrorText>
+          <Typography variant="subtitle2">{errorMessage}</Typography>{" "}
+        </ErrorText>
+      )}
       {!errorMessage && <span>&nbsp;</span>}
-    </FormGroup>
+    </SpacedFormGroup>
   );
 }
 
@@ -97,13 +101,13 @@ function SignUpForm() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<SignUpFields>();
 
-  const onSubmit = (vals: any) => {
+  const onSubmit = (vals: SignUpFields) => {
     console.log("submitted", vals);
+    const resp = api.login(vals);
+    console.log("response", vals);
   };
-
-  console.log(errors);
 
   return (
     <TwoCol className="SignUpForm">
@@ -112,21 +116,21 @@ function SignUpForm() {
         <div>Info</div>
       </FortyCol>
       <PaddedForm onSubmit={handleSubmit(onSubmit)}>
-        <TextFieldValidated<SignUpFormFields>
+        <TextFieldValidated<SignUpFields>
           required
           label="First Name"
           name="firstName"
           register={register}
           errors={errors.firstName}
         />
-        <TextFieldValidated<SignUpFormFields>
+        <TextFieldValidated<SignUpFields>
           required
           label="Last Name"
           name="lastName"
           register={register}
           errors={errors.lastName}
         />
-        <TextFieldValidated<SignUpFormFields>
+        <TextFieldValidated<SignUpFields>
           required
           label="Email"
           name="email"
