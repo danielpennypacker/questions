@@ -13,24 +13,36 @@ import { useForm } from "react-hook-form";
 
 /* 
 Since I was using material, I tried to stick to their "styled components"
-convention. I also really like normal css and things like tailwind-css.
+convention. I also really like normal css, scss and things like tailwind-css.
 */
 const TwoCol = styled("div")({
   display: "flex",
   marginBottom: "3rem",
 });
-const LeftCol = styled("div")({
+
+const MobileHidden = styled("div")`
+  @media (max-width: 600px) {
+    display: none;
+  }
+`;
+const LeftCol = styled(MobileHidden)({
   width: "40%",
   position: "relative",
 });
 const LeftColContent = styled("div")({
   padding: "2rem",
 });
-const RightCol = styled("div")({
-  width: "60%",
+
+const MobileFull = styled("div")`
+  @media (max-width: 600px) {
+    width: 100%;
+  }
+`;
+const RightCol = styled(MobileFull)({
   borderRadius: "0 1rem 1rem 0",
   backgroundColor: "white",
   padding: "2rem",
+  width: "60%",
 });
 const TransparentBack = styled("div")({
   borderRadius: "1rem 0 0 1rem",
