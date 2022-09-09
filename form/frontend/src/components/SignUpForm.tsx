@@ -1,44 +1,34 @@
-import React from "react";
-import { styled, useTheme, Theme } from "@mui/system";
+import React, { useState } from "react";
+import { styled } from "@mui/system";
 import { SignUpFields } from "../types";
+import { TextField } from "./ValidFields";
 import * as api from "../api";
 
-import { TextField, Button, FormGroup, Typography } from "@mui/material";
-import {
-  useForm,
-  FieldError,
-  Merge,
-  FieldErrorsImpl,
-  FieldValue,
-} from "react-hook-form";
-
-const PaddedForm = styled("form")({
-  backgroundColor: "white",
-  display: "flex",
-  flexDirection: "column",
-  padding: "2rem 4rem 4rem 4rem",
-  width: "60%",
-});
-
-const SpacedFormGroup = styled(FormGroup)({
-  marginTop: "1rem",
-});
-
-const ErrorText = styled("span")((props) => ({
-  color: props.theme.palette.error.main,
-}));
+import { Button, List, ListItem, Typography } from "@mui/material";
+import { useForm } from "react-hook-form";
 
 const TwoCol = styled("div")({
   display: "flex",
+  marginBottom: "3rem",
 });
 
-const FortyCol = styled("div")({
+const LeftCol = styled("div")({
   width: "40%",
   position: "relative",
 });
-
+const LeftColContent = styled("div")({
+  padding: "2rem",
+});
+const RightCol = styled("div")({
+  width: "60%",
+  borderRadius: "0 1rem 1rem 0",
+  backgroundColor: "white",
+  padding: "2rem",
+});
 const TransparentBack = styled("div")({
+  borderRadius: "1rem 0 0 1rem",
   opacity: 0.5,
+  zIndex: -1,
   backgroundColor: "grey",
   width: "100%",
   height: "100%",
@@ -49,99 +39,80 @@ const SpacedButton = styled(Button)({
   marginTop: "1rem",
 });
 
-interface TextFieldValidProps<Type> {
-  label: string;
-  name: keyof Type;
-  register: any;
-  customErrorMessage?: string;
-  errors?: FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
-  required?: boolean;
-}
-function TextFieldValidated<Type>({
-  register,
-  errors,
-  name,
-  required,
-  customErrorMessage,
-  label,
-}: TextFieldValidProps<Type>) {
-  let errorMessage;
-  let errorType = errors?.type;
-  if (errorType === "required") {
-    errorMessage = "Required";
-  }
-
-  if (customErrorMessage) {
-    errorMessage = customErrorMessage;
-  }
-
-  return (
-    <SpacedFormGroup>
-      <TextField
-        {...register(name, {
-          required,
-        })}
-        error={!!errors || customErrorMessage}
-        label={label}
-        defaultValue="lalal"
-        variant="standard"
-      />
-      {errorMessage && (
-        <ErrorText>
-          <Typography variant="subtitle2">{errorMessage}</Typography>{" "}
-        </ErrorText>
-      )}
-      {!errorMessage && <span>&nbsp;</span>}
-    </SpacedFormGroup>
-  );
+interface SignUpFormProps {
+  setFormSubmitted: (newVal: boolean) => void;
 }
 
-function SignUpForm() {
+function SignUpForm({ setFormSubmitted }: SignUpFormProps) {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<SignUpFields>();
 
+  const [backendErrors, setBackendErrors] = useState<SignUpFields>({});
+
   const onSubmit = (vals: SignUpFields) => {
-    console.log("submitted", vals);
-    const resp = api.login(vals);
-    console.log("response", vals);
+    const resp = api.login(vals).then(
+      (resp) => {
+        setFormSubmitted(true);
+      },
+      (errorResp) => {
+        setBackendErrors(errorResp["errors"]);
+      }
+    );
   };
 
   return (
     <TwoCol className="SignUpForm">
-      <FortyCol>
+      <LeftCol>
         <TransparentBack />
-        <div>Info</div>
-      </FortyCol>
-      <PaddedForm onSubmit={handleSubmit(onSubmit)}>
-        <TextFieldValidated<SignUpFields>
-          required
-          label="First Name"
-          name="firstName"
-          register={register}
-          errors={errors.firstName}
-        />
-        <TextFieldValidated<SignUpFields>
-          required
-          label="Last Name"
-          name="lastName"
-          register={register}
-          errors={errors.lastName}
-        />
-        <TextFieldValidated<SignUpFields>
-          required
-          label="Email"
-          name="email"
-          register={register}
-          errors={errors.email}
-        />
-        <TextField label="Password" variant="standard" type="password" />
-        <SpacedButton type="submit" variant="contained">
-          Sign Up
-        </SpacedButton>
-      </PaddedForm>
+        <LeftColContent>
+          <List>
+            <ListItem>What a nice code sample!</ListItem>
+          </List>
+        </LeftColContent>
+      </LeftCol>
+      <RightCol>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <TextField<SignUpFields>
+            required
+            label="First Name"
+            name="first_name"
+            register={register}
+            errors={errors.first_name}
+            customErrorMessage={backendErrors.first_name}
+          />
+          <TextField<SignUpFields>
+            required
+            label="Last Name"
+            name="last_name"
+            register={register}
+            errors={errors.last_name}
+            customErrorMessage={backendErrors.last_name}
+          />
+          <TextField<SignUpFields>
+            required
+            label="Email"
+            name="email"
+            register={register}
+            errors={errors.email}
+            customErrorMessage={backendErrors.email}
+          />
+
+          <TextField<SignUpFields>
+            required
+            label="Phone"
+            name="phone"
+            register={register}
+            errors={errors.phone}
+            customErrorMessage={backendErrors.phone}
+          />
+          <SpacedButton type="submit" variant="contained">
+            Sign Up
+          </SpacedButton>
+        </form>
+      </RightCol>
     </TwoCol>
   );
 }

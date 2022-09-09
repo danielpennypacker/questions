@@ -1,6 +1,7 @@
 export interface SignUpFields {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
+  first_name?: string;
+  last_name?: string;
+  email?: string;
+  phone?: string;
+  password?: string;
 }

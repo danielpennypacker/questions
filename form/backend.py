@@ -8,6 +8,7 @@ from flask_cors import CORS, cross_origin
 app = Flask(__name__)
 cors = CORS(app, resources={r"/api/users": {"origins": "http://localhost:3000"}})
 
+
 @app.route("/api/users", methods=["POST"])
 def create_user():
     payload = json.loads(request.data, strict=False)
