@@ -8,6 +8,7 @@ import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 
+// Change these to change colors!
 const theme = createTheme({
   palette: {
     primary: {

@@ -1,17 +1,24 @@
+/*
+This is the main component that actual handles the actions 
+and ajax for the form. 
+*/
 import React, { useState } from "react";
 import { styled } from "@mui/system";
 import { SignUpFields } from "../types";
 import { TextField } from "./ValidFields";
 import * as api from "../api";
 
-import { Button, List, ListItem, Typography } from "@mui/material";
+import { Button, List, ListItem } from "@mui/material";
 import { useForm } from "react-hook-form";
 
+/* 
+Since I was using material, I tried to stick to their "styled components"
+convention. I also really like normal css and things like tailwind-css.
+*/
 const TwoCol = styled("div")({
   display: "flex",
   marginBottom: "3rem",
 });
-
 const LeftCol = styled("div")({
   width: "40%",
   position: "relative",
@@ -34,7 +41,6 @@ const TransparentBack = styled("div")({
   height: "100%",
   position: "absolute",
 });
-
 const SpacedButton = styled(Button)({
   marginTop: "1rem",
 });
@@ -50,11 +56,13 @@ function SignUpForm({ setFormSubmitted }: SignUpFormProps) {
     formState: { errors },
   } = useForm<SignUpFields>();
 
+  // State for storing errors from the server.
   const [backendErrors, setBackendErrors] = useState<SignUpFields>({});
 
   const onSubmit = (vals: SignUpFields) => {
     const resp = api.login(vals).then(
       (resp) => {
+        // State function from the SignUp container.
         setFormSubmitted(true);
       },
       (errorResp) => {
@@ -75,6 +83,10 @@ function SignUpForm({ setFormSubmitted }: SignUpFormProps) {
       </LeftCol>
       <RightCol>
         <form onSubmit={handleSubmit(onSubmit)}>
+          {/* Unless it's a really long list, I prefer to write out html like this instead of looping 
+          over some kind of object. (For example [{label: "First Name", field: "first_name"} ..] ).
+            If these need to get rearagned or further customized, it'll be nice that they're alreay written out.
+          */}
           <TextField<SignUpFields>
             required
             label="First Name"

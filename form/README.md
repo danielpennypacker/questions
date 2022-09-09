@@ -3,7 +3,8 @@
 ```
 cd questions/forms/frontend
 npm install
-npm
+npm start
+# Navigate to http://localhost:3000/ in a browser.
 ```
 
 # Create a sign up form

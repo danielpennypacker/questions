@@ -1,3 +1,9 @@
+/*
+I'm importing files with relative imports
+like ""./containers/SignUp";". This works out of the box, and is 
+easy to use. There are ways to get absolute-path imports, but I'd 
+check with the team which they prefer.
+*/
 import React from "react";
 import SignUp from "./containers/SignUp";
 

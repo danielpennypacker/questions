@@ -1,4 +1,9 @@
-import React, { useState } from "react";
+/*
+- I thought this made sense for a module. Similar code around validating inputs could live here.
+- I could be argued out of naming this component "TextField", as it's the same as the material component,
+but it's a little bit intentional too. 
+*/
+import React from "react";
 import {
   TextField as MuiTextField,
   Typography,
@@ -6,13 +11,8 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/system";
 import { FieldError, Merge, FieldErrorsImpl } from "react-hook-form";
-type TextTypes = "password" | "text";
 
 const ErrorText = styled("span")((props) => ({
-  color: props.theme.palette.error.main,
-}));
-
-const ErrorSpacer = styled("span")((props) => ({
   color: props.theme.palette.error.main,
 }));
 
@@ -27,11 +27,11 @@ interface TextFieldProps<Type> {
   customErrorMessage?: string;
   errors?: FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
   required?: boolean;
-  type?: TextTypes;
   onFocus?: () => void;
   onBlur?: () => void;
 }
 
+// Passing in "Type", makes sure you've got the correct keys for the name and errors.
 export function TextField<Type>({
   register,
   errors,
@@ -39,12 +39,14 @@ export function TextField<Type>({
   required,
   customErrorMessage,
   label,
-  type,
   onFocus,
   onBlur,
 }: TextFieldProps<Type>) {
   let errorMessage;
   let errorType = errors?.type;
+  // I'm only checking for "required" on the cliend side so it's easy to see
+  // the backend responding with errors too.
+  // This could easly be expanded to have lots more error "types".
   if (errorType === "required") {
     errorMessage = "Required";
   }
@@ -52,8 +54,6 @@ export function TextField<Type>({
   if (customErrorMessage) {
     errorMessage = customErrorMessage;
   }
-
-  const [currentType, setCurrentType] = useState<TextTypes>(type || "text");
 
   return (
     <SpacedFormGroup>
@@ -63,7 +63,6 @@ export function TextField<Type>({
         })}
         onBlur={onBlur}
         onFocus={onFocus}
-        type={currentType}
         error={!!errors || !!customErrorMessage}
         label={label}
         variant="standard"

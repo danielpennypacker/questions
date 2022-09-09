@@ -1,3 +1,8 @@
+/*
+If a page has many ajax actions, then I'll put them in a "container" component like this one.
+A container is also similar to a "page" of an app. Since the only ajax action I have is 
+submitting the signup form, I let it in the SignUpForm component.
+*/
 import React, { useState } from "react";
 import SignUpForm from "../components/SignUpForm";
 import { styled } from "@mui/system";

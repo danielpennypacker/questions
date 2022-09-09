@@ -1,8 +1,12 @@
+/*
+I like to put ajax requests in their own file. 
+ */
 import { SignUpFields } from "./types";
 
 export const BASE_URL = "http://127.0.0.1:5000";
 
-const _rejectErrorStatus = (resp: any) => {
+// Reusable for this module.
+const rejectErrorStatus = (resp: any) => {
   let json = resp.json();
   if (resp.status >= 200 && resp.status < 300) {
     return json;
@@ -16,5 +20,5 @@ export const login = (body: SignUpFields) => {
     mode: "cors",
     method: "POST",
     body: JSON.stringify(body),
-  }).then(_rejectErrorStatus);
+  }).then(rejectErrorStatus);
 };
